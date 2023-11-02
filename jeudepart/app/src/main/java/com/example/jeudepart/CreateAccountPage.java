@@ -25,6 +25,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CreateAccountPage extends AppCompatActivity {
 
@@ -55,8 +57,8 @@ public class CreateAccountPage extends AppCompatActivity {
         newCompteButton = (Button) findViewById(R.id.buttonCreateNewCompte);
 
         ArrayList<SpinnerItem> itemList = new ArrayList<>();
-        itemList.add(new SpinnerItem("Canada", R.drawable.flag_of_canada));
-        itemList.add(new SpinnerItem("US", R.drawable.flag_of_the_united_states));
+        itemList.add(new SpinnerItem("Canada", R.drawable.canada));
+        itemList.add(new SpinnerItem("US", R.drawable.united_states_of_america));
         //SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this,itemList);
         //spinnerPays.setAdapter(spinnerAdapter);
 
@@ -74,9 +76,16 @@ public class CreateAccountPage extends AppCompatActivity {
 
     }
 
+    private boolean isValidate(String email) {
+        Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.find();
+    }
+
     @SuppressLint("SetTextI18n")
     private void validation() {
         boolean retVal = true;
+
         if(this.prenom.getText().toString().trim().isEmpty() || this.prenom.getText().toString().trim().length()<3){
             this.prenom.setError("Adress Courriel doit contenir plus de 3 caratères");
             retVal = false;
@@ -85,8 +94,8 @@ public class CreateAccountPage extends AppCompatActivity {
             this.nom.setError("Mot de passe doit contenir plus de 3 caratères");
             retVal = false;
         }
-        if(this.email.getText().toString().trim().isEmpty() || this.email.getText().toString().trim().length()<6 ){
-            this.email.setError("Mot de passe doit contenir plus de 6 ");
+        if(this.email.getText().toString().trim().isEmpty() || this.email.getText().toString().trim().length()<6 || !isValidate(this.email.getText().toString().trim())){
+            this.email.setError("Mot de passe doit contenir plus de 6 et contenir un @");
             retVal = false;
         }
         if(this.passWord.getText().toString().trim().isEmpty() || this.passWord.getText().toString().trim().length()<6){

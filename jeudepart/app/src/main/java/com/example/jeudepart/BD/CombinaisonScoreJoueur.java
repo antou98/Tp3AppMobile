@@ -1,6 +1,6 @@
 package com.example.jeudepart.BD;
 
-public class CombinaisonScoreJoueur {
+public class CombinaisonScoreJoueur implements Comparable<CombinaisonScoreJoueur>{
 
     private Joueur joueur;
 
@@ -25,5 +25,10 @@ public class CombinaisonScoreJoueur {
 
     public void setScore(Score score) {
         this.score = score;
+    }
+
+    @Override
+    public int compareTo(CombinaisonScoreJoueur combinaisonScoreJoueur) {
+        return this.score.getScore()-combinaisonScoreJoueur.score.getScore();
     }
 }
