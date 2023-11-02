@@ -56,12 +56,11 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void directTo(){
-
         Intent intent = new Intent(this, Jeu.class);
         intent.putExtra("idJoueur",1);
         super.startActivity(intent);
-
     }
+
     public void initButtons(){
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
