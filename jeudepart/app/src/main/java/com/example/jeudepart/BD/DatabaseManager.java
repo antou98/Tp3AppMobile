@@ -28,8 +28,9 @@ public class DatabaseManager extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable( connectionSource, Joueur.class );
 
+            TableUtils.createTable( connectionSource, Score.class );
+            TableUtils.createTable( connectionSource, Joueur.class );
         }catch (Exception e){
             Log.i("Error DATABASE perso","Error creation db : "+e.getMessage().toString());
         }
@@ -39,10 +40,22 @@ public class DatabaseManager extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
+            TableUtils.dropTable( connectionSource, Score.class, true );
             TableUtils.dropTable( connectionSource, Joueur.class ,true);
             onCreate(database,connectionSource);
         }catch (Exception e){
             Log.i("Error DATABASE perso","Error creation db : "+e.getMessage().toString());
+        }
+    }
+
+    public void recreateTables(){
+        try {
+            TableUtils.dropTable( connectionSource, Score.class, true );
+            TableUtils.dropTable( connectionSource, Joueur.class ,true);
+            TableUtils.createTable( connectionSource, Joueur.class );
+            TableUtils.createTable( connectionSource, Score.class );
+        }catch (Exception e){
+
         }
     }
 
@@ -66,5 +79,87 @@ public class DatabaseManager extends OrmLiteSqliteOpenHelper {
             Log.e( "DATABASE", "Error lire données table joueur table", exception );
             return null;
         }
+    }
+
+    public Joueur getJoueur(int id){
+        try {
+            Dao<Joueur, Integer> dao = getDao( Joueur.class );
+            Joueur joueur = dao.queryForId(id);
+            return joueur;
+        }catch (Exception e){
+            Log.e( "DATABASE", "Error lire données table joueur table", e );
+            return null;
+        }
+    }
+
+    public void insertScore( Score score ) {
+        try {
+            Dao<Score, Integer> dao = getDao( Score.class );
+            dao.create( score );
+            Log.i( "DATABASE", "insertScore invoked" );
+        } catch( Exception exception ) {
+            Log.e( "DATABASE", "Can't insert score into Database", exception );
+        }
+    }
+
+
+    public List<Score> readScores() {
+        try {
+            Dao<Score, Integer> dao = getDao( Score.class );
+            List<Score> scores = dao.queryForAll();
+            Log.i( "DATABASE", "readScores invoked" );
+            return scores;
+        } catch( Exception exception ) {
+            Log.e( "DATABASE", "Can't insert score into Database", exception );
+            return null;
+        }
+    }
+
+    public void deleteScore(int id){
+        try {
+            Dao<Score, Integer> dao = getDao( Score.class );
+            dao.deleteById(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void replaceScoreIfSmaller(Score scoreNew,Joueur joueur){
+        try {
+            Dao<Score, Integer> dao = getDao( Score.class );
+
+            Score scoreOld = null;
+            for (Score s:readScores()) {
+                if (s.getUser().getIdJoueur()==joueur.getIdJoueur()){
+                    scoreOld = s;
+                }
+            }
+
+            if (scoreOld!=null){
+                if(scoreOld.getScore()>=scoreNew.getScore()){
+                    scoreOld.setScore(scoreNew.getScore());
+                    dao.update(scoreOld);
+                    Log.i("DATABASE","Score changed");
+                }
+            }else {
+                dao.createIfNotExists(scoreNew);
+                //Log.i("DATABASE","Score not changed");
+            }
+
+        } catch( Exception exception ) {
+            Log.e( "DATABASE", "Can't score score into Database", exception );
+        }
+    }
+
+    public Score getScoreFromJoueur(Joueur joueur){
+        Score scoreRet = null;
+        for (Score s:readScores()) {
+            if (s.getUser().getIdJoueur()==joueur.getIdJoueur()){
+                scoreRet = s;
+                break;
+            }
+        }
+
+        return scoreRet;
     }
 }

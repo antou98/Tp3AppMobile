@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,16 +18,9 @@ import com.example.jeudepart.BD.Joueur;
 public class LoginPage extends AppCompatActivity {
 
     private Button loginButton;
-
     private Button createAccountButton;
-
     private TextView emailTextField;
-
     private TextView passwordTextField;
-
-    private String tmpBDEntryValPassword = "12345";
-    private String tmpBDEntryValEmail = "12345";
-
     private DatabaseManager databaseManager;
 
     @Override
@@ -37,6 +31,15 @@ public class LoginPage extends AppCompatActivity {
 
         //db
         databaseManager = new DatabaseManager(this);
+        //user pas défault
+        //databaseManager.recreateTables();
+        //databaseManager.deleteScore(1);
+        //databaseManager.insertJoueur(new Joueur("fortier","antoine","ant@live.ca","abc123!","canada"));
+        /*Log.i("nbJoueur",  databaseManager.getAllJoueurs().size()+"");
+
+        Log.i("nbJoueur",  databaseManager.getAllJoueurs().size()+"");*/
+        Log.i("nbJoueur",  databaseManager.getAllJoueurs().size()+"");
+        Log.i("scores",databaseManager.readScores().toString());
 
         //init buttons
         this.loginButton = (Button) super.findViewById(R.id.buttonConnection);
@@ -47,13 +50,26 @@ public class LoginPage extends AppCompatActivity {
         this.loginButton.setClickable(false);
         this.loginButton.setEnabled(false);
         initButtons();
+
+        this.loginButton.setClickable(true);
+        this.loginButton.setEnabled(true);
     }
 
+    public void directTo(){
+
+        Intent intent = new Intent(this, Jeu.class);
+        intent.putExtra("idJoueur",1);
+        super.startActivity(intent);
+
+    }
     public void initButtons(){
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                valideBdInfo();
+               // valideBdInfo();
+
+                //temp
+                directTo();
             }
         });
 
@@ -101,15 +117,18 @@ public class LoginPage extends AppCompatActivity {
 
     public void valideBdInfo(){
         boolean retVal = false;
+        int id = 0;
         for (Joueur j: databaseManager.getAllJoueurs()) {
             if (this.emailTextField.getText().toString().trim().equals(j.getEmail()) && this.passwordTextField.getText().toString().trim().equals(j.getMotdepasse())){
                 retVal = true;
+                id=j.getIdJoueur();
             }
         }
 
         if(retVal){
             //intent jeu
             Intent intent = new Intent(this, Jeu.class);
+            intent.putExtra("idJoueur",id);
             super.startActivity(intent);
 
         }
