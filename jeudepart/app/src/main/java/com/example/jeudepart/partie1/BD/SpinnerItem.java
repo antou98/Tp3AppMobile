@@ -1,4 +1,4 @@
-package com.example.jeudepart.BD;
+package com.example.jeudepart.partie1.BD;
 
 public class SpinnerItem {
     private String text;

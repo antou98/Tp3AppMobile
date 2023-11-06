@@ -1,4 +1,4 @@
-package com.example.jeudepart;
+package com.example.jeudepart.partie1;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.jeudepart.BD.CombinaisonScoreJoueur;
-import com.example.jeudepart.BD.DatabaseManager;
-import com.example.jeudepart.BD.Score;
+import com.example.jeudepart.partie1.BD.CombinaisonScoreJoueur;
+import com.example.jeudepart.R;
 
 import java.util.List;
 
@@ -41,10 +40,8 @@ public class ListViewAdapter extends ArrayAdapter<CombinaisonScoreJoueur> {
         TextView textViewscore = convertView.findViewById(R.id.label3);
         TextView textViewdate = convertView.findViewById(R.id.label4);
 
-        int resId  = 0;
         switch (score.getJoueur().getPays()) {
             case "canada":
-                resId = R.drawable.canada;
                 imageView.setImageResource(R.drawable.canada);
                 break;
             case "us":

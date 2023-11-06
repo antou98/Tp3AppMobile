@@ -1,4 +1,4 @@
-package com.example.jeudepart;
+package com.example.jeudepart.partie1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,21 +7,18 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.jeudepart.BD.DatabaseManager;
-import com.example.jeudepart.BD.Joueur;
-import com.example.jeudepart.BD.SpinnerItem;
-
-import org.w3c.dom.Text;
+import com.example.jeudepart.partie1.BD.DatabaseManager;
+import com.example.jeudepart.partie1.BD.Joueur;
+import com.example.jeudepart.partie1.BD.SpinnerItem;
+import com.example.jeudepart.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

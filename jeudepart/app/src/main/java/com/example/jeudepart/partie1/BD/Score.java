@@ -1,6 +1,5 @@
-package com.example.jeudepart.BD;
+package com.example.jeudepart.partie1.BD;
 
-import com.example.jeudepart.BD.Joueur;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.util.Date;

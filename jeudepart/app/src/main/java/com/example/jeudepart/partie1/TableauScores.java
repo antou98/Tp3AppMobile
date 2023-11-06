@@ -1,10 +1,9 @@
-package com.example.jeudepart;
+package com.example.jeudepart.partie1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
@@ -17,13 +16,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jeudepart.BD.CombinaisonScoreJoueur;
-import com.example.jeudepart.BD.DatabaseManager;
-import com.example.jeudepart.BD.Joueur;
-import com.example.jeudepart.BD.Score;
+import com.example.jeudepart.partie1.BD.CombinaisonScoreJoueur;
+import com.example.jeudepart.partie1.BD.DatabaseManager;
+import com.example.jeudepart.partie1.BD.Joueur;
+import com.example.jeudepart.partie1.BD.Score;
+import com.example.jeudepart.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

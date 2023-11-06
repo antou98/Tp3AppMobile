@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jeudepart">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,13 +16,19 @@
         android:theme="@style/Theme.Jeudepart"
         tools:targetApi="31">
         <activity
-            android:name=".TableauScores"
+            android:name=".partie2.CreateAccount2"
             android:exported="false" />
         <activity
-            android:name=".CreateAccountPage"
+            android:name=".partie2.Partie2"
             android:exported="false" />
         <activity
-            android:name=".LoginPage"
+            android:name=".partie1.TableauScores"
+            android:exported="false" />
+        <activity
+            android:name=".partie1.CreateAccountPage"
+            android:exported="false" />
+        <activity
+            android:name=".partie1.LoginPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +37,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Jeu"
+            android:name=".partie1.Jeu"
             android:exported="true" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

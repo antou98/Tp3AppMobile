@@ -1,5 +1,6 @@
-package com.example.jeudepart;
+package com.example.jeudepart.partie1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,20 +8,24 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jeudepart.BD.DatabaseManager;
-import com.example.jeudepart.BD.Joueur;
+import com.example.jeudepart.partie1.BD.DatabaseManager;
+import com.example.jeudepart.partie1.BD.Joueur;
+import com.example.jeudepart.R;
+import com.example.jeudepart.partie2.Partie2;
 
 public class LoginPage extends AppCompatActivity {
 
-    private Button loginButton;
-    private Button createAccountButton;
-    private TextView emailTextField;
-    private TextView passwordTextField;
+    protected Button loginButton;
+    protected Button createAccountButton;
+    protected TextView emailTextField;
+    protected TextView passwordTextField;
     private DatabaseManager databaseManager;
 
     @Override
@@ -51,8 +56,25 @@ public class LoginPage extends AppCompatActivity {
         this.loginButton.setEnabled(false);
         initButtons();
 
-        this.loginButton.setClickable(true);
-        this.loginButton.setEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        Intent intent = null;
+        if(itemId == R.id.partie2Label){
+            intent = new Intent(this, Partie2.class);
+            super.startActivity(intent);
+        }else {
+
+        }
+        return true;
     }
 
     public void directTo(){
@@ -65,10 +87,7 @@ public class LoginPage extends AppCompatActivity {
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // valideBdInfo();
-
-                //temp
-                directTo();
+               valideBdInfo();
             }
         });
 

@@ -1,4 +1,4 @@
-package com.example.jeudepart;
+package com.example.jeudepart.partie1;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.jeudepart.BD.SpinnerItem;
+import com.example.jeudepart.partie1.BD.SpinnerItem;
+import com.example.jeudepart.R;
 
 import java.util.List;
 

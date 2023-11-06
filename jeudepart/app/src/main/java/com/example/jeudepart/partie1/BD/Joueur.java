@@ -1,4 +1,4 @@
-package com.example.jeudepart.BD;
+package com.example.jeudepart.partie1.BD;
 
 
 import com.j256.ormlite.field.DatabaseField;
