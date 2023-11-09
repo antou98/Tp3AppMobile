@@ -1,0 +1,14 @@
+frontend : 
+pour front end il faut changer l'adresse ip pour l'adresse de l'ordinateur sur le réseau local  dans la classe Partie2.java
+
+
+backend : 
+dans le dossier node il faut ouvrir un terminal et lancer la commande 
+: npm run setup 
+et après la commande 
+: npm run dev 
+
+(avoir node.js d'installé sur l'ordi)
+
+
+

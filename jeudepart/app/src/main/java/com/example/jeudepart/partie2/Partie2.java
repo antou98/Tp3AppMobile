@@ -37,7 +37,7 @@ public class Partie2 extends AppCompatActivity {
 
     private RequestQueue requestQueue;
 
-    //doit être l'adresse de l'ordi sur le réseau
+    //doit être l'adresse de l'ordi local sur le réseau
     private final String ipaddress = "192.168.2.48";
     private final String Url = "http://"+ipaddress+":5000";
     protected Button loginButton;
