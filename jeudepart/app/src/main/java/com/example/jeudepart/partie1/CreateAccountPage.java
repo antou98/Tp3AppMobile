@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -25,7 +26,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CreateAccountPage extends AppCompatActivity {
+public class CreateAccountPage extends AppCompatActivity{
 
     private TextView prenom;
 
@@ -41,6 +42,8 @@ public class CreateAccountPage extends AppCompatActivity {
 
     private DatabaseManager databaseManager;
 
+    private  String pays;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,17 +56,33 @@ public class CreateAccountPage extends AppCompatActivity {
         spinnerPays = (Spinner) findViewById(R.id.spinner);
         newCompteButton = (Button) findViewById(R.id.buttonCreateNewCompte);
 
+        Spinner spinnerPays = findViewById(R.id.spinner);
         ArrayList<SpinnerItem> itemList = new ArrayList<>();
         itemList.add(new SpinnerItem("Canada", R.drawable.canada));
+        itemList.add(new SpinnerItem("Chine", R.drawable.china));
+        itemList.add(new SpinnerItem("Japon", R.drawable.japan));
         itemList.add(new SpinnerItem("US", R.drawable.united_states_of_america));
-        //SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this,itemList);
-        //spinnerPays.setAdapter(spinnerAdapter);
+        itemList.add(new SpinnerItem("Brézil", R.drawable.brazil));
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, itemList);
+        spinnerPays.setAdapter(spinnerAdapter);
+        spinnerPays.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                SpinnerItem selectedItem = itemList.get(i);
+                pays = selectedItem.getText();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //db
         databaseManager = new DatabaseManager(this);
 
         ArrayList<String> pays = new ArrayList<>(Arrays.asList("canada","us","mexique","brésil","france","angleterre","russie","chine","inde","espagne"));
-        spinnerPays.setAdapter(new ArrayAdapter<String>(this,R.layout.simpletextlayout,pays));
+        //spinnerPays.setAdapter(new ArrayAdapter<String>(this,R.layout.simpletextlayout,pays));
         newCompteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,14 +118,14 @@ public class CreateAccountPage extends AppCompatActivity {
             this.passWord.setError("Mot de passe doit contenir plus de 6 caratères");
             retVal = false;
         }
-       if(this.spinnerPays.getSelectedItem().toString().trim().isEmpty()){
+       if(pays.isEmpty()){
             retVal = false;
         }
 
 
         if(retVal){
             //insert new joueur
-            databaseManager.insertJoueur(new Joueur(this.nom.getText().toString().trim(),this.prenom.getText().toString().trim(),this.email.getText().toString().trim(),this.passWord.getText().toString().trim(),this.spinnerPays.getSelectedItem().toString().trim()));
+            databaseManager.insertJoueur(new Joueur(this.nom.getText().toString().trim(),this.prenom.getText().toString().trim(),this.email.getText().toString().trim(),this.passWord.getText().toString().trim(),pays));
 
             Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.popup);
@@ -135,6 +154,8 @@ public class CreateAccountPage extends AppCompatActivity {
         Intent intent = new Intent(this, LoginPage.class);
         super.startActivity(intent);
     }
+
+
 
 
 }

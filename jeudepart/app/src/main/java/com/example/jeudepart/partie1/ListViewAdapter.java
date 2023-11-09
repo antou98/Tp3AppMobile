@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.example.jeudepart.partie1.BD.CombinaisonScoreJoueur;
 import com.example.jeudepart.R;
+import com.example.jeudepart.partie1.BD.SpinnerItem;
 
 import java.util.List;
 
@@ -40,40 +41,27 @@ public class ListViewAdapter extends ArrayAdapter<CombinaisonScoreJoueur> {
         TextView textViewscore = convertView.findViewById(R.id.label3);
         TextView textViewdate = convertView.findViewById(R.id.label4);
 
+
         switch (score.getJoueur().getPays()) {
-            case "canada":
+            case "Canada":
                 imageView.setImageResource(R.drawable.canada);
                 break;
-            case "us":
+            case "US":
                 imageView.setImageResource(R.drawable.united_states_of_america);
                 break;
-            case "mexique":
-                System.out.println("Mexico");
+            case "Chine":
+                imageView.setImageResource(R.drawable.china);
                 break;
-            case "brésil":
-                System.out.println("Brazil");
+            case "Brézil":
+                imageView.setImageResource(R.drawable.brazil);
                 break;
-            case "france":
-                System.out.println("France");
-                break;
-            case "angleterre":
-                System.out.println("England");
-                break;
-            case "russie":
-                System.out.println("Russia");
-                break;
-            case "chine":
-                System.out.println("China");
-                break;
-            case "inde":
-                System.out.println("India");
-                break;
-            case "espagne":
-                System.out.println("Spain");
+            case "Japon":
+                imageView.setImageResource(R.drawable.japan);
                 break;
             default:
                 System.out.println("Unknown country");
         }
+
         textViewpays.setText(score.getJoueur().getPays());
         textViewnom.setText(score.getJoueur().getPrenom());
         textViewscore.setText(String.valueOf(score.getScore().getScore()));

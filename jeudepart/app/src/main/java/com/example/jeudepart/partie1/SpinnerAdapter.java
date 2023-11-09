@@ -19,33 +19,38 @@ import java.util.List;
 public class SpinnerAdapter extends ArrayAdapter<SpinnerItem> {
 
     private Context context;
-    private List<SpinnerItem> voyageurList;
+    private List<SpinnerItem> itemList;
 
-    private int resource;
-
-    public SpinnerAdapter(@NonNull Context context, @NonNull List<SpinnerItem> objects) {
-        super(context, 0, objects);
+    public SpinnerAdapter(Context context, List<SpinnerItem> itemList) {
+        super(context, 0, itemList);
+        this.context = context;
+        this.itemList = itemList;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(this.resource, parent, false);
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            convertView = inflater.inflate(R.layout.image_text, parent, false);
         }
-
 
         SpinnerItem currentSpinner = getItem(position);
 
+        ImageView imagePays = convertView.findViewById(R.id.imagePays);
+        TextView textPays = convertView.findViewById(R.id.textPays);
 
-        ImageView image1TextView = (ImageView) convertView.findViewById(R.id.spinner_image);
-        TextView label2TextView = (TextView) convertView.findViewById(R.id.spinner_text);
-
-
-        image1TextView.setImageResource(currentSpinner.getImageResId());
-        label2TextView.setText(currentSpinner.getText());
+        //set le spinner  seulement si pas null éviter les erreurs
+        if (currentSpinner != null) {
+            imagePays.setImageResource(currentSpinner.getImageResId());
+            textPays.setText(currentSpinner.getText());
+        }
 
         return convertView;
+    }
+
+    @Override
+    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        return getView(position, convertView, parent);
     }
 }

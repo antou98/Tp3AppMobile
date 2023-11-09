@@ -54,9 +54,10 @@ public class TableauScores extends AppCompatActivity {
     }
 
     public void backToGame(){
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, Jeu.class);
         intent.putExtra("idJoueur",idJoueur);
         super.startActivity(intent);
+
     }
 
     public List<CombinaisonScoreJoueur> buildObjectsFromDataBase(){

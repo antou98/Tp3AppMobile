@@ -43,7 +43,7 @@ public class LoginPage extends AppCompatActivity {
         /*Log.i("nbJoueur",  databaseManager.getAllJoueurs().size()+"");
 
         Log.i("nbJoueur",  databaseManager.getAllJoueurs().size()+"");*/
-        Log.i("nbJoueur",  databaseManager.getAllJoueurs().size()+"");
+        Log.i("nbJoueur",  databaseManager.getAllJoueurs().toString());
         Log.i("scores",databaseManager.readScores().toString());
 
         //init buttons
@@ -55,6 +55,8 @@ public class LoginPage extends AppCompatActivity {
         this.loginButton.setClickable(false);
         this.loginButton.setEnabled(false);
         initButtons();
+
+
 
     }
 
